@@ -41,6 +41,9 @@ loss_history = []
 
 NUM_EPOCHS = 50
 
+NUM_EPOCHS = 50
+
+loss_history = []
 
 for epoch in range(NUM_EPOCHS):
 
@@ -60,13 +63,6 @@ for epoch in range(NUM_EPOCHS):
             previous_delta
         )
 
-        #
-        # TARGET
-        #
-        # compare predicted future state
-        # against projected future observation
-        #
-
         target = model.P(
             future_obs
         )
@@ -82,13 +78,15 @@ for epoch in range(NUM_EPOCHS):
 
         total_loss += loss.item()
 
-		loss_history.append(total_loss)
-		
+    loss_history.append(
+        total_loss
+    )
+
     print(
         "Epoch:",
         epoch,
         "Loss:",
         total_loss
-        "Loss History:"
-        loss_history
     )
+
+print(loss_history)
