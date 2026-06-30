@@ -82,7 +82,7 @@ for epoch in range(NUM_EPOCHS):
 
         total_loss += loss.item()
 
-	loss_history.append(total_loss)
+		loss_history.append(total_loss)
 		
     print(
         "Epoch:",
