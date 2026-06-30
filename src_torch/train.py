@@ -3,14 +3,15 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 
 from model import FiveDMarketsModel
-from dataset2 import MarketSequenceDataset
-
+# from dataset import MarketSequenceDataset
+from dataset_v2 import DisequilibriumDataset
 
 # -----------------------------------------
 # DATA
 # -----------------------------------------
 
-dataset = MarketSequenceDataset()
+# dataset = MarketSequenceDataset()
+dataset = DisequilibriumDataset()
 
 loader = DataLoader(
     dataset,
