@@ -15,7 +15,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 
-from src_torch.dataset import MarketSequenceDataset
+from src_torch.dataset2 import MarketSequenceDataset
 from no_divergence_model import NoDivergenceModel
 
 
