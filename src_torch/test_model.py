@@ -6,24 +6,25 @@ from model import FiveDMarketsModel
 model = FiveDMarketsModel()
 
 
-# batch size = 1
 observation = torch.randn(
     1,
     7
 )
 
-previous_state = torch.zeros(
+previous_delta = torch.zeros(
     1,
     32
 )
 
 
-output, state = model(
+allocation, delta = model(
     observation,
-    previous_state
+    previous_delta
 )
 
 
-print("Output shape:", output.shape)
+print("Allocation shape:",
+      allocation.shape)
 
-print("State shape:", state.shape)
+print("Delta shape:",
+      delta.shape)
