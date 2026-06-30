@@ -89,7 +89,7 @@ class FiveDMarketsModel(nn.Module):
             deformation
         )
 
-        # allocation
+        # allocation # changed pi to phi for training
         allocation = self.Phi(
             future
         )
