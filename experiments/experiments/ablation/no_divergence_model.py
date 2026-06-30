@@ -1,6 +1,7 @@
 import sys
 import os
 
+# add repo root to python path
 sys.path.append(
     os.path.abspath(
         os.path.join(
@@ -12,84 +13,54 @@ sys.path.append(
 
 import torch
 import torch.nn as nn
-from torch.utils.data import DataLoader
 
-from src_torch.dataset import MarketSequenceDataset
-
-
-dataset = MarketSequenceDataset()
-
-loader = DataLoader(
-    dataset,
-    batch_size=32,
-    shuffle=True
-)
+from src_torch.layers.observed_projection import ObservedProjection
+from src_torch.layers.hysteresis_memory import HysteresisMemory
+from src_torch.layers.deformation_graph import DeformationGraph
+from src_torch.layers.future_transition import FutureTransition
 
 
-model = NoDivergenceModel()
+class NoDivergenceModel(nn.Module):
+
+    """
+    Ablation model.
+
+    Removes equilibrium branch and
+    removes divergence operator Ω.
+    """
+
+    def __init__(self):
+
+        super().__init__()
+
+        self.P = ObservedProjection()
+
+        self.H = HysteresisMemory()
+
+        self.G = DeformationGraph()
+
+        self.Phi = FutureTransition()
 
 
-optimizer = torch.optim.Adam(
-    model.parameters(),
-    lr=0.001
-)
+    def forward(self,
+                observation,
+                previous_state):
 
-
-loss_fn = nn.MSELoss()
-
-
-NUM_EPOCHS = 50
-
-loss_history = []
-
-
-for epoch in range(NUM_EPOCHS):
-
-    total_loss = 0
-
-    for current_obs, future_obs in loader:
-
-        previous_state = torch.zeros(
-            current_obs.shape[0],
-            32
+        observed = self.P(
+            observation
         )
 
-        optimizer.zero_grad()
-
-        prediction = model(
-            current_obs,
+        memory = self.H(
+            observed,
             previous_state
         )
 
-        #
-        # SAME TARGET
-        #
-
-        target = model.P(
-            future_obs
+        deformation = self.G(
+            memory
         )
 
-        loss = loss_fn(
-            prediction,
-            target
+        future = self.Phi(
+            deformation
         )
 
-        loss.backward()
-
-        optimizer.step()
-
-        total_loss += loss.item()
-
-    loss_history.append(
-        total_loss
-    )
-
-    print(
-        "Epoch:",
-        epoch,
-        "Loss:",
-        total_loss
-    )
-
-
-print(loss_history)
+        return future
