@@ -33,7 +33,7 @@ optimizer = torch.optim.Adam(
 
 
 loss_fn = nn.MSELoss()
-
+loss_history = []
 
 # -----------------------------------------
 # TRAINING LOOP
@@ -43,7 +43,9 @@ NUM_EPOCHS = 50
 
 
 for epoch in range(NUM_EPOCHS):
-
+	loss_history.append(
+    	total_loss
+	)
     total_loss = 0
 
     for current_obs, future_obs in loader:
@@ -87,4 +89,6 @@ for epoch in range(NUM_EPOCHS):
         epoch,
         "Loss:",
         total_loss
+        "Loss History:"
+        loss_history
     )
