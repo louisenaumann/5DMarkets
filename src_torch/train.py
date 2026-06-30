@@ -3,7 +3,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 
 from model import FiveDMarketsModel
-from dataset import MarketSequenceDataset
+from dataset2 import MarketSequenceDataset
 
 
 # -----------------------------------------
