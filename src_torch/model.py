@@ -3,64 +3,95 @@ import torch.nn as nn
 
 from layers.reconstruction import ReconstructionOperator
 from layers.market_manifold import MarketManifold
+from layers.observed_projection import ObservedProjection
+from layers.divergence import DivergenceOperator
 from layers.hysteresis_memory import HysteresisMemory
 from layers.deformation_graph import DeformationGraph
 from layers.future_transition import FutureTransition
-from layers.decoder import Decoder
+from layers.capital_allocator import CapitalAllocator
 
 
 class FiveDMarketsModel(nn.Module):
 
     """
-    Full 5DMarkets architecture
+    Architecture V2
 
-    O_t → R → M → H → G → Φ → D → O_hat
+    O_t → [Equilibrium Branch + Observed Branch]
+
+    Δ = S_eq - S_obs
+
+    Δ → H → G → Φ → Π
     """
 
     def __init__(self):
 
         super().__init__()
 
+        # equilibrium branch
         self.R = ReconstructionOperator()
 
         self.M = MarketManifold()
 
+        # observed branch
+        self.P = ObservedProjection()
+
+        # divergence
+        self.Omega = DivergenceOperator()
+
+        # temporal + propagation
         self.H = HysteresisMemory()
 
         self.G = DeformationGraph()
 
         self.Phi = FutureTransition()
 
-        self.D = Decoder()
+        # allocation
+        self.Pi = CapitalAllocator()
 
 
     def forward(self,
                 observation,
-                previous_state):
+                previous_delta):
 
+        # equilibrium estimate
         z = self.R(
             observation
         )
 
-        s = self.M(
+        s_eq = self.M(
             z
         )
 
-        h = self.H(
-            s,
-            previous_state
+        # observed state
+        s_obs = self.P(
+            observation
         )
 
-        d = self.G(
-            h
+        # divergence
+        delta = self.Omega(
+            s_eq,
+            s_obs
         )
 
-        y = self.Phi(
-            d
+        # memory
+        memory = self.H(
+            delta,
+            previous_delta
         )
 
-        reconstructed = self.D(
-            y
+        # deformation propagation
+        deformation = self.G(
+            memory
         )
 
-        return reconstructed, s
+        # future transition
+        future = self.Phi(
+            deformation
+        )
+
+        # allocation
+        allocation = self.Pi(
+            future
+        )
+
+        return allocation, delta
