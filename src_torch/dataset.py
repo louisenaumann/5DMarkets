@@ -1,57 +1,75 @@
 import torch
+from torch.utils.data import Dataset
 import numpy as np
 
 
-class MarketDataset:
+class MarketSequenceDataset(Dataset):
 
     """
-    Structured synthetic market data.
+    Generate synthetic sequential market data.
 
-    Variables are correlated.
+    Each sample:
 
-    This simulates realistic market structure.
+    O_t  -> current observation
+
+    O_t+1 -> future observation
     """
 
-    def __init__(self):
+    def __init__(self,
+                 num_samples=5000):
 
-        pass
+        self.samples = []
+
+        for _ in range(num_samples):
+
+            # latent market stress
+            stress_t = np.random.normal(0, 1)
+
+            # next step partially persistent
+            stress_next = (
+                0.8 * stress_t
+                +
+                np.random.normal(0, 0.2)
+            )
+
+            current = self.generate_state(
+                stress_t
+            )
+
+            future = self.generate_state(
+                stress_next
+            )
+
+            self.samples.append(
+                (current, future)
+            )
 
 
-    def generate_sample(self):
-
-        # base market stress variable
-        stress = np.random.normal(0, 1)
-
-        # correlations built in
+    def generate_state(self,
+                       stress):
 
         price_return = -0.03 * stress \
                        + np.random.normal(0, 0.01)
 
         volume = 1.0 \
-                 + 0.4 * abs(stress) \
-                 + np.random.normal(0, 0.05)
+                 + 0.4 * abs(stress)
 
         volatility = 0.2 \
-                     + 0.15 * abs(stress) \
-                     + np.random.normal(0, 0.02)
+                     + 0.15 * abs(stress)
 
         options_skew = 0.15 \
-                       + 0.10 * stress \
-                       + np.random.normal(0, 0.02)
+                       + 0.10 * stress
 
         sentiment = 0.7 \
-                    - 0.25 * stress \
-                    + np.random.normal(0, 0.03)
+                    - 0.25 * stress
 
         sector_strength = 0.6 \
-                          - 0.2 * stress \
-                          + np.random.normal(0, 0.03)
+                          - 0.2 * stress
 
         yield_curve = 0.4 \
-                      + 0.1 * stress \
-                      + np.random.normal(0, 0.02)
+                      + 0.1 * stress
 
-        sample = np.array([
+        vec = np.array([
 
             price_return,
 
@@ -70,20 +88,19 @@ class MarketDataset:
         ])
 
         return torch.tensor(
-            sample,
+            vec,
             dtype=torch.float32
         )
 
 
-    def corrupt(self,
-                sample):
+    def __len__(self):
 
-        corrupted = sample.clone()
+        return len(
+            self.samples
+        )
 
-        # hide volatility
-        corrupted[2] = 0.0
 
-        # hide options skew
-        corrupted[3] = 0.0
+    def __getitem__(self,
+                    idx):
 
-        return corrupted
+        return self.samples[idx]
