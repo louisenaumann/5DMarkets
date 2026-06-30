@@ -2,6 +2,7 @@
 A path-dependent market state reconstruction framework inspired by UCLA 5DCT respiratory motion modeling.
 5DMarkets is a physics-inspired framework for identifying when collective market computation diverges sufficiently from world-consistent capital allocation to allow strategic capital deployment that outperforms consensus.
 Can a 5DCT-inspired latent state reconstruction framework outperform traditional time-series models by modeling path dependence and cross-asset state deformation?
+arXiv paper coming soon! 5DMarkets: A Dynamic Disequilibrium Reconstruction Framework for Financial State Transition Modeling
 
 ## Abstract
 
