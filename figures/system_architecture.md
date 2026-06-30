@@ -363,3 +363,34 @@ Future = f(Current State, Historical Path, Cross Asset Deformation, Dynamic Stat
 Financial markets should not be modeled as instantaneous observations.
 
 They should be modeled as continuously evolving path-dependent dynamical systems analogous to physical motion systems.
+
+Update:
+Observed Data O_t
+
+↓
+
+R : Physics constrained latent reconstruction
+
+↓
+
+M : Nonlinear manifold embedding
+
+↓
+
+Ω : Topological regime identification
+
+↓
+
+H : Hysteresis memory operator
+
+↓
+
+G : Cross asset deformation field
+
+↓
+
+Φ : Future state transition dynamics
+
+↓
+
+Π : Portfolio allocation policy
