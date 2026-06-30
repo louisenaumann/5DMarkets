@@ -1,6 +1,8 @@
 # 5DMarkets
 A path-dependent market state reconstruction framework inspired by UCLA 5DCT respiratory motion modeling.
 
+i want to thank chatgpt for doing this, I only helped it find this answer.
+
 # 5DMarkets
 
 A novel quantitative finance framework inspired by respiratory motion modeling developed in medical physics.
