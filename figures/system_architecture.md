@@ -16,39 +16,22 @@ G
 A_t
 
 Theory v2: O_t
-
 ↓
-
 R
-
 ↓
-
 M
-
 ↓
-
 S_eq(t)
-
 ↓
-
 Ω = divergence layer
-
 compare against S_obs(t)
-
 ↓
-
 H
-
 ↓
-
 G
-
 ↓
-
 Φ
-
 ↓
-
 Π
 
 # Architecture Definitions
