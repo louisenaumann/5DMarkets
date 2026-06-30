@@ -46,7 +46,7 @@ for epoch in range(NUM_EPOCHS):
 	loss_history.append(
     	total_loss
 	)
-		total_loss = 0
+total_loss = 0
 
     for current_obs, future_obs in loader:
 
