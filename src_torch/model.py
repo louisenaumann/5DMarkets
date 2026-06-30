@@ -90,7 +90,7 @@ class FiveDMarketsModel(nn.Module):
         )
 
         # allocation
-        allocation = self.Pi(
+        allocation = self.Phi(
             future
         )
 
