@@ -29,3 +29,59 @@ A_t = Π(Φ(G(H(M(R(O_t))))))
 where market observations are progressively transformed through latent state reconstruction, geometric state representation, historical path encoding, network deformation propagation, future state transition modeling, and final portfolio allocation optimization.
 
 The objective of this work is to establish a theoretical and computational framework capable of reconstructing hidden market state in a manner analogous to physical motion modeling systems, with applications in quantitative investing, regime forecasting, and adaptive portfolio construction.
+
+## 2 Mathematical Inspiration from 5DCT Respiratory Motion Modeling
+
+The theoretical foundation of 5DMarkets originates from five-dimensional computed tomography (5DCT), a computational framework developed in radiation oncology for modeling continuous respiratory motion.
+
+Conventional four-dimensional computed tomography (4DCT) reconstructs anatomical motion by sorting images according to discrete respiratory phases. This approach introduces significant limitations under irregular breathing conditions because anatomical state is approximated using phase rather than continuous physical motion variables.
+
+5DCT addresses this limitation by modeling anatomical displacement continuously as a function of respiratory amplitude and respiratory velocity.
+
+The generalized motion equation can be represented as:
+
+X(r,t) = X_0(r) + α(r)V(t) + β(r)F(t)
+
+where X(r,t) represents the spatial position of anatomical tissue at time t, X_0(r) represents baseline anatomical position, V(t) represents respiratory amplitude, and F(t) represents respiratory velocity.
+
+The coefficients α(r) and β(r) characterize local tissue sensitivity to displacement and path-dependent hysteresis effects.
+
+A critical implication emerges from this formulation.
+
+Two anatomically identical positions may correspond to different future states depending on the trajectory through which those positions were reached.
+
+During inhalation and exhalation, tissue frequently occupies identical spatial coordinates while maintaining distinct future motion trajectories.
+
+This path dependency is known as hysteresis.
+
+We hypothesize that financial markets exhibit an analogous structure.
+
+Traditional financial models implicitly assume that market state can be represented as a function of instantaneous observable variables.
+
+Formally:
+
+S_t = f(O_t)
+
+where O_t represents current market observations and S_t represents market state.
+
+We argue this formulation is incomplete.
+
+Instead, market state should be represented as a function of both present observation and historical trajectory.
+
+We define an analogous financial state equation:
+
+S_t = S_0 + αM_t + βṀ_t
+
+where S_t represents latent market state, S_0 represents equilibrium baseline market state, M_t represents market amplitude, and Ṁ_t represents market velocity or first-order temporal derivative of market movement.
+
+The coefficient α describes system sensitivity to market displacement magnitude while β captures path-dependent hysteresis behavior.
+
+This formulation introduces a critical distinction.
+
+Two assets occupying identical present prices do not necessarily share equivalent future probability distributions.
+
+A stock reaching a price level through gradual accumulation may occupy a fundamentally different latent state than a stock reaching the identical price through rapid recovery following systemic stress.
+
+This directly parallels respiratory hysteresis observed in 5DCT motion modeling.
+
+The objective of 5DMarkets is to generalize this physical principle into a computational framework capable of reconstructing hidden financial state as a continuously evolving dynamical system.
