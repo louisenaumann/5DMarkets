@@ -43,10 +43,8 @@ NUM_EPOCHS = 50
 
 
 for epoch in range(NUM_EPOCHS):
-	loss_history.append(
-    	total_loss
-	)
-total_loss = 0
+
+    total_loss = 0
 
     for current_obs, future_obs in loader:
 
@@ -84,6 +82,8 @@ total_loss = 0
 
         total_loss += loss.item()
 
+	loss_history.append(total_loss)
+		
     print(
         "Epoch:",
         epoch,
