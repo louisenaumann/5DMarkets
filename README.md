@@ -1,7 +1,7 @@
 # 5DMarkets
 A path-dependent market state reconstruction framework inspired by UCLA 5DCT respiratory motion modeling.
 
-i want to thank chatgpt for doing this, I only helped it find this answer.
+Disclaimer: I colloborated with ChatGPT.
 
 # 5DMarkets
 
