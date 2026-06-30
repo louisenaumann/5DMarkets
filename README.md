@@ -1,10 +1,6 @@
 # 5DMarkets
 A path-dependent market state reconstruction framework inspired by UCLA 5DCT respiratory motion modeling.
 
-# 5DMarkets
-
-A novel quantitative finance framework inspired by respiratory motion modeling developed in medical physics.
-
 ## Abstract
 
 Financial markets are traditionally modeled as point-in-time systems where future behavior is assumed to depend primarily on present observations. This assumption ignores path dependency, hysteresis, latent structural dynamics, and cross-asset deformation under systemic stress.
