@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 
-from 5DMarkets.src_torch.dataset import MarketSequenceDataset
+from src_torch.dataset import MarketSequenceDataset
 from no_divergence_model import NoDivergenceModel
 
 
