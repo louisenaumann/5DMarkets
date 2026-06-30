@@ -15,11 +15,13 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 
-from src_torch.dataset2 import MarketSequenceDataset
+# from src_torch.dataset import MarketSequenceDataset
+from src_torch.dataset_v2 import DisequilibriumDataset
 from no_divergence_model import NoDivergenceModel
 
 
-dataset = MarketSequenceDataset()
+# dataset = MarketSequenceDataset()
+dataset = DisequilibriumDataset()
 
 loader = DataLoader(
     dataset,
